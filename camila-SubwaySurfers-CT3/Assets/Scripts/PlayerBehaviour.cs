@@ -14,15 +14,17 @@ public class PlayerBehaviour : MonoBehaviour
         left = true;
         right = true;
         center = false;
+
     }
+
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             moveLeft();
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             moveRight();
         }
@@ -30,6 +32,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             jump();
         }
+
     }
 
     private void moveLeft()
@@ -37,10 +40,9 @@ public class PlayerBehaviour : MonoBehaviour
         if (left && !center)
         {
             transform.position = new Vector3(-3f, 0f, 0f);
-
             left = false;
-            center = true;
             right = true;
+            center = true;
         }
         else if (center && !right)
         {
@@ -57,10 +59,9 @@ public class PlayerBehaviour : MonoBehaviour
         if (right && !center)
         {
             transform.position = new Vector3(3f, 0f, 0f);
-
             left = true;
-            center = true;
             right = false;
+            center = true;
         }
         else if (center && !left)
         {
@@ -85,4 +86,10 @@ public class PlayerBehaviour : MonoBehaviour
             isGrounded = true;
         }
     }
+
 }
+
+
+
+
+
