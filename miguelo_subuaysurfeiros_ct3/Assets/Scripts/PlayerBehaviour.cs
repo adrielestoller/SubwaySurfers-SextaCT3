@@ -73,13 +73,15 @@ public class PlayerBehaviour : MonoBehaviour
     private void jump()
     {
         rb.AddForce(new Vector3(0f, 7f, 0f), ForceMode.Impulse);
-        isGrounded = true;
+        isGrounded = false;
     }
 
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collider)
     {
-      if (collision.gameObject.CompareTag("Ground"))
-      isGrounded = true;
+      if (collider.gameObject.CompareTag("Ground"))
+      {
+        isGrounded = true;
+      }
     }
 }
