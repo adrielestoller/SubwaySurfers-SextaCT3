@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
     private Rigidbody rb;
+    [SerializeField] private ScoreManager scoreManager;
     private bool left, center, right, isGrounded;
 
     private void Start()
@@ -36,7 +38,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (left && !center)
         {
-            transform.position = new Vector3(-3f, 0f, 0f);
+            transform.position = new Vector3(-3f, transform.position.y, 0f);
 
             left = false;
             center = true;
@@ -44,7 +46,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
         else if (center && !right)
         {
-            transform.position = new Vector3(0f, 0f, 0f);
+            transform.position = new Vector3(0f, transform.position.y, 0f);
 
             left = true;
             center = false;
@@ -56,7 +58,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (right && !center)
         {
-            transform.position = new Vector3(3f, 0f, 0f);
+            transform.position = new Vector3(3f, transform.position.y, 0f);
 
             left = true;
             center = true;
@@ -64,7 +66,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
         else if (center && !left)
         {
-            transform.position = new Vector3(0f, 0f, 0f);
+            transform.position = new Vector3(0f, transform.position.y, 0f);
 
             left = true;
             center = false;
@@ -83,6 +85,17 @@ public class PlayerBehaviour : MonoBehaviour
         if (collider.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+        }
+        if (collider.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log("Perdeu Playboy");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        if (collider.gameObject.CompareTag("Coin"))
+        {
+            Debug.Log("Pegou uma moeda!");
+            Destroy(collider.gameObject);
+            scoreManager.addScore(1);
         }
     }
 }
